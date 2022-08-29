@@ -48,7 +48,7 @@ public:
 
         if(!input_video.isOpened()) {
             ROS_ERROR("Couldn't Open The Camera !");
-            ROS_ERROR("Babay :(");
+            ROS_ERROR("Terminated!");
             ros::shutdown();
         }
 
