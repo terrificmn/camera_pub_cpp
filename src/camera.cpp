@@ -38,7 +38,7 @@ public:
 
         if(id_camera == -1) {
             ROS_WARN("camera's id has not recived");
-            ROS_WARN("I will open every camera that I find :P ");
+            ROS_WARN("Every camera would be opened that is found");
             ROS_WARN("Now start to advertise %s", cam_topic.c_str());
         }
 
@@ -48,7 +48,7 @@ public:
 
         if(!input_video.isOpened()) {
             ROS_ERROR("Couldn't Open The Camera !");
-            ROS_ERROR("Babay :(");
+            ROS_ERROR("Make sure that a cam is connected to a computer.");
             ros::shutdown();
         }
 
