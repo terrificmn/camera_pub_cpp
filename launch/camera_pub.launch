@@ -1,0 +1,4 @@
+<launch>
+	<rosparam file="$(find camera_pub_cpp)/config/camera_params.yaml" command="load"/>
+	<node name="camera_pub_cpp" pkg="camera_pub_cpp" type="camera_pub_cpp_node" output="screen"/>
+</launch>
