@@ -55,6 +55,7 @@ include_directories(
 add_executable(${PROJECT_NAME}_node 
   src/camera_main.cpp
   src/camera_driver.cpp
+  src/camera_status.cpp
 )
 
 ## Rename C++ executable without prefix

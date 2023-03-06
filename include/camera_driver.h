@@ -3,6 +3,7 @@
 
 #include <ros/ros.h>
 #include <sensor_msgs/Image.h>
+#include <camera_status.h>
 #include "opencv2/opencv.hpp"
 #include "opencv2/highgui.hpp"
 #include "cv_bridge/cv_bridge.h"
@@ -10,9 +11,6 @@
 #include <image_transport/image_transport.h>
 #include <sensor_msgs/image_encodings.h>
 
-// enum VideoStatus {
-//         ACTIVE, REQUEST_STOP, STOPPED, RESTART, NORMAL_START
-// };
 
 class CameraDriver {
 private:
@@ -28,10 +26,11 @@ protected:
 public:
     CameraDriver();
     ~CameraDriver();
-    
+
     cv::VideoCapture input_video;
     cv::Mat frame;
     void camPublish();
+    void test();
 
 };
 #endif

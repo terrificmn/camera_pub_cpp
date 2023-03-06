@@ -9,7 +9,7 @@ CameraDriver::CameraDriver() {
 
 CameraDriver::~CameraDriver() {
     delete ptrIt;
-    ROS_INFO("deleted and destructed");
+    ROS_INFO("Deleted and Destructed");
 }
 
 void CameraDriver::camPublish() {
@@ -20,4 +20,11 @@ void CameraDriver::camPublish() {
     this->cvi_msg.header.stamp = ros::Time::now();
 
     this->img_pub.publish(this->cvi_msg.toImageMsg());
+}
+
+
+// test
+void CameraDriver::test(){
+    ROS_INFO("***test");
+
 }

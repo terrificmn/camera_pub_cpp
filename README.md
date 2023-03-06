@@ -8,6 +8,7 @@ Ubuntu 20.04
 ROS Noetic
 OpenCV 버전 4.2   
 C++
+Tinker Board 2 (single board computer)
 
 ## Noetic
 에서는 따로 opencv 관련해서 특별히 해줄 것은 없고  
@@ -24,15 +25,8 @@ pip3 install --upgrade pip
 python3 -m pip install opencv-python
 ```
 
-## Melodic
-멜로딕에서는 CMakelists.txt 에 따로 opencv 패키지를 찾아서 넣어줘야 한다   
-현재 camera_pub_cpp 패키지를 melodic 브랜치로 클론하면 된다   
-```
-git clone -b melodic https://github.com/terrificmn/camera_pub_cpp.git
-```
-
 ### opencv4 빌드
-melodic에서는 opencv 4 빌드한 후에 사용  
+melodic 버전에서는 opencv 4 빌드한 후에 사용  (또는 noetic에서도 빌드가 필요한 경우 참고)   
 python으로 설치하는 것은 별 도움이 안 됨
 
 먼저 opencv를 깃 클론 한 후 빌드해야함~
@@ -63,7 +57,14 @@ sudo make install
 roscore
 ```
 
-새로운 터미널을 열어서 
+새로운 터미널을 열어서 런치파일 실행
+```
+roslaunch camera_pub_cpp camera_pub.launch 
+```
+
+> 런치파일 사용 시 파라미터 사용가능하므로 config 디렉토리의 환경설정 파일 사용가능
+
+또는 노드만 실행 (기본파라미터 사용)
 ```
 rosrun camera_pub_cpp camera_pub_cpp_node 
 ```
@@ -75,7 +76,22 @@ rosrun rqt_image_view rqt_image_view
 토픽을 /camera/color/image_raw 로 맞춰주면 화면이 나옴
 
 
+## config
+config 디렉토리의 camera_params.yaml 에서 사용
 
+- camera_id : integer로 지정 
 
+비디오 id 확인하려면
+```
+ls -l /dev/video*
+```
+로 나온 결과가 있으면 높은 결과로 0 으로 사용,   
+먄약 0이 아닌 /dev/video3 이런식으로 나오면 3으로 사용   
+
+> 여러개가 나올 경우에는 (한 device에서) 하나씩 테스트 해본다.
+
+- rate: integer로 지정 ... publish 속도 또는 imgshow 의 속도
+
+- enable_imgshow: bool type 지정. imgshow 로 보여준다. default는 false
 
 
