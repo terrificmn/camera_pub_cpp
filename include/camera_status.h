@@ -5,7 +5,7 @@
 #include <std_msgs/Int16.h>
 
 enum VideoStatus {
-        ACTIVE, REQUEST_STOP, STOPPED, RESTART, NORMAL_START
+    ACTIVE, REQUEST_STOP, STOPPED, CAMERA_START, INACTIVE
 };
 
 class CameraStatus {
@@ -14,7 +14,9 @@ private:
     ros::Subscriber sub_cam_status;
 
 protected:
-    VideoStatus video_status = VideoStatus::NORMAL_START;
+    VideoStatus video_status = VideoStatus::INACTIVE;
+    bool is_camera_running = false;
+    // int sub_msg = VideoStatus::INACTIVE;
 
 public:
     CameraStatus();
@@ -24,5 +26,7 @@ public:
     void setStatus(VideoStatus video_status);
     VideoStatus getStatus();
     
+    void setIsCameraRunning(bool running_state);
+    bool getIsCameraRunning();
 };
 #endif

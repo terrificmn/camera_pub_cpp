@@ -21,10 +21,3 @@ void CameraDriver::camPublish() {
 
     this->img_pub.publish(this->cvi_msg.toImageMsg());
 }
-
-
-// test
-void CameraDriver::test(){
-    ROS_INFO("***test");
-
-}

@@ -30,7 +30,6 @@ public:
     cv::VideoCapture input_video;
     cv::Mat frame;
     void camPublish();
-    void test();
 
 };
 #endif
