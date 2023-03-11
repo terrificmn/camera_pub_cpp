@@ -1,9 +1,11 @@
 #include <ros/ros.h>
 #include <camera_driver.h>
+#include <std_msgs/Int16.h>
 
 int main(int argc, char** argv) {
     ros::init(argc, argv, "camera_publish_node");
     ros::NodeHandle nh;
+    ros::Publisher pub_cam_onoff = nh.advertise<std_msgs::Int16>("/camera_onoff", 1);
 
     // prameters set
     int camera_dev_id = -1, rate = 30; //default
@@ -41,6 +43,10 @@ int main(int argc, char** argv) {
             }
             camStatusObj.setStatus(VideoStatus::ACTIVE);
             camStatusObj.setCameraStartTime();
+            //publish 
+            std_msgs::Int16 msg;
+            msg.data = 1;
+            pub_cam_onoff.publish(msg);
 
         } else if(camStatusObj.getStatus() == VideoStatus::ACTIVE) {              // only do when active
             camObj->input_video.read(camObj->frame);
@@ -66,6 +72,10 @@ int main(int argc, char** argv) {
             camStatusObj.setIsCameraRunning(false);
             delete camObj;
             camObj = nullptr;
+            //publish
+            std_msgs::Int16 msg;
+            msg.data = 0;
+            pub_cam_onoff.publish(msg);
         }
 
         ros::spinOnce();
