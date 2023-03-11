@@ -16,7 +16,8 @@ private:
 protected:
     VideoStatus video_status = VideoStatus::INACTIVE;
     bool is_camera_running = false;
-    // int sub_msg = VideoStatus::INACTIVE;
+    ros::Time start_time;
+    ros::Duration duration_time;
 
 public:
     CameraStatus();
@@ -28,5 +29,9 @@ public:
     
     void setIsCameraRunning(bool running_state);
     bool getIsCameraRunning();
+
+    void setCameraStartTime();
+    void calculateActiveTime();
+    double getDurationTime(); 
 };
 #endif

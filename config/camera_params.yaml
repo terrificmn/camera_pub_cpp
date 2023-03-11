@@ -1,3 +1,4 @@
 camera_id: 0
 rate: 30
 enable_imgshow: false
+timeout: 15

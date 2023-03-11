@@ -22,7 +22,6 @@ void CameraStatus::camStatusCb(const std_msgs::Int16::ConstPtr& msg) {
         } else {
             ROS_WARN("NOT allowed to start twice");
         }
-        
     } else {
         ROS_ERROR("Not supported. This will be ignored");
     }
@@ -42,4 +41,18 @@ void CameraStatus::setIsCameraRunning(bool running_state) {
 
 bool CameraStatus::getIsCameraRunning() {
     return this->is_camera_running;
+}
+
+void CameraStatus::setCameraStartTime() {
+    this->start_time = ros::Time::now();
+}
+
+void CameraStatus::calculateActiveTime() {
+    ros::Time current_time = ros::Time::now();
+    this->duration_time = current_time - this->start_time;
+    // ROS_INFO("duration: %lf", duration_time.toSec());
+}
+
+double CameraStatus::getDurationTime() {
+    return this->duration_time.toSec();
 }

@@ -5,11 +5,16 @@ int main(int argc, char** argv) {
     ros::init(argc, argv, "camera_publish_node");
     ros::NodeHandle nh;
 
+    // prameters set
     int camera_dev_id = -1, rate = 30; //default
     bool enable_imgshow = false;
+    int timeout = 5;
     nh.getParam( "camera_id", camera_dev_id);
     nh.getParam( "rate", rate);
     nh.getParam( "enable_imgshow", enable_imgshow);
+    nh.getParam( "timeout", timeout);
+    int timeout_sec = timeout * 60;
+    ROS_INFO("timeout_sec: %d", timeout_sec);
 
     if(camera_dev_id == -1) {
         ROS_WARN("Please check camera id. You may try to type below..");
@@ -20,11 +25,9 @@ int main(int argc, char** argv) {
 
     CameraDriver* camObj = nullptr;
     CameraStatus camStatusObj;
-    
 
     ros::Rate loop_rate(rate);
     while (ros::ok()) {
-        // to do: 두번씩 들어오거나 못하게 업데이트, 현재 status는 구독이후(cb function에서) 바로 변경되므로 참고
         if(camStatusObj.getStatus() == VideoStatus::INACTIVE ||
             (camStatusObj.getStatus() == VideoStatus::CAMERA_START && camStatusObj.getIsCameraRunning() == false)) { // default or request to start
             // camObj.input_video.set(cv2.CV_CAP_PROP_FPS, rate);
@@ -37,10 +40,18 @@ int main(int argc, char** argv) {
                 return 1;
             }
             camStatusObj.setStatus(VideoStatus::ACTIVE);
+            camStatusObj.setCameraStartTime();
 
         } else if(camStatusObj.getStatus() == VideoStatus::ACTIVE) {              // only do when active
             camObj->input_video.read(camObj->frame);
             camObj->camPublish();
+
+            // calculate active time
+            camStatusObj.calculateActiveTime();
+            if(camStatusObj.getDurationTime() > timeout_sec) {
+                //force to change the camera's status
+                camStatusObj.setStatus(VideoStatus::REQUEST_STOP);
+            }
 
             // disabled by param
             if(enable_imgshow) {
