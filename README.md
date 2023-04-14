@@ -32,8 +32,10 @@ git clone -b melodic https://github.com/terrificmn/camera_pub_cpp.git
 ```
 
 ### opencv4 빌드
-melodic에서는 opencv 4 빌드한 후에 사용  
-python으로 설치하는 것은 별 도움이 안 됨
+melodic에서는 OpenCV 3.2 를 지원하고 있기 때문에 opencv 4 가 필요하다  
+python으로 설치하는 해도 별 소용이 없다   
+
+> 참고로 ros noetic 에서는 OpenCV 4.2 사용
 
 먼저 opencv를 깃 클론 한 후 빌드해야함~
 ```
