@@ -2,6 +2,11 @@
 ROS camera publish node - cpp   
 카메라 화면을 /camera/color/image_raw topic으로 Publish 하는 노드 입니다.   
 
+noetic-tinker 브랜치  
+
+싱글보드 컴퓨터 tinker board 2 (ASUS) 를 사용하는 버전.  
+ROS 메세지를 받아서 카메라를 작동시키고, 중지 해야할 경우에는 CameraDriver 클래스에서 이미지 처리를 하지 않고  
+클래스 Delete 시켜서 Cpu 사용을 거의 안하게 되는 카메라 노드
 
 ## 개발 환경
 Ubuntu 20.04  
@@ -93,5 +98,4 @@ ls -l /dev/video*
 - rate: integer로 지정 ... publish 속도 또는 imgshow 의 속도
 
 - enable_imgshow: bool type 지정. imgshow 로 보여준다. default는 false
-
 
