@@ -2,7 +2,7 @@
 
 CameraStatus::CameraStatus() {
     ROS_INFO("Camera Status Init");
-    sub_cam_status = nh.subscribe<std_msgs::Int16>("/camera_status", 10, &CameraStatus::camStatusCb, this);
+    sub_cam_status = nh.subscribe<std_msgs::Int16>("/camera_request", 10, &CameraStatus::camStatusCb, this);
 }
 
 CameraStatus::~CameraStatus() {} 
